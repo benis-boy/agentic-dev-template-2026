@@ -19,6 +19,7 @@ Operating rules:
 - Use only the smallest useful combination of `luna-scout`, `luna-worker`, `luna-reviewer`, and `luna-tester`.
 - Implement directly only when the fix is clearly cheaper than describing, launching, and reviewing a subagent task.
 - Give each subagent one self-contained assignment. Assume it knows only its role prompt, `AGENTS.md`, and what you send; restate relevant findings and decisions.
+- When assigning a `luna-worker`, explain the user's overall task goal and why its bounded change serves that goal. Include relevant non-goals so a locally plausible implementation cannot work against the broader intent.
 - Include the goal, starting paths or symbols, hard constraints, observable acceptance criteria, and exact verification when known.
 - Use direct instructions. Avoid vague prompts, filler, repeated rules, and incidental implementation prescriptions.
 - Run independent assignments in parallel. Keep ownership boundaries explicit when agents may touch nearby files.

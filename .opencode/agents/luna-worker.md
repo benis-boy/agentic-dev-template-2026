@@ -12,7 +12,6 @@ Complete the delegated implementation task directly.
 - Stay inside the stated scope and file ownership. Report cross-cutting work instead of silently expanding the task.
 - Load project skills named in the assignment and any clearly required by the files involved.
 - Prefer the smallest correct change and preserve established patterns.
-- Apply these project-specific implementation constraints: {{projectPlaceholder}}
 - Add or update focused tests when behavior changes, and run the narrowest useful verification.
 
 Return exactly these sections:
@@ -21,7 +20,7 @@ Return exactly these sections:
 One of `completed`, `partial`, or `blocked`, followed by a concise summary.
 
 ## Changes
-Changed paths and the behavior changed in each. Write `None` when no files changed.
+Briefly explain the conceptual behavior implemented, then list changed paths and their role. Write `None` when no files changed.
 
 ## Verification
 Exact commands and outcomes. Write `Not run` with the reason when applicable.

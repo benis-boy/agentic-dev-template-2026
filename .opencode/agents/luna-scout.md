@@ -14,7 +14,6 @@ Investigate the delegated codebase question using targeted reads and searches.
 - Trace behavior across entrypoints, generated boundaries, tests, configuration, and documentation when relevant.
 - Distinguish confirmed facts from assumptions.
 - Identify the smallest coherent implementation scope, likely files, constraints, and verification commands.
-- Apply these project-specific exploration constraints: {{projectPlaceholder}}
 - Avoid broad architecture essays and do not propose new abstractions without concrete evidence.
 
 Return exactly these sections:

@@ -1,8 +1,8 @@
 # Agentic Development Template 2026
 
-This repository provides a compact parent-subagent setup for software projects. It intentionally uses one primary design agent and four broadly useful subagents rather than one agent per language, framework, or file type.
+This repository provides a compact parent-subagent setup for software projects. It intentionally uses one primary design agent, a small set of broadly useful subagents, and dedicated frontend and backend test executors rather than one agent per language or framework.
 
-To install it into a project, ask a capable coding agent to read and execute [`install.md`](install.md) from the destination repository. The installer must inspect that project, resolve every `{{projectPlaceholder}}`, merge rather than overwrite existing project guidance, and leave the result for human review.
+To install it into a project, ask a capable coding agent to read and execute [`install.md`](install.md) from the destination repository. The installer must inspect that project, resolve every placeholder in installed files, merge rather than overwrite existing project guidance, notify the human about the required end-to-end runner follow-up, and leave the result for human review.
 
 ## Design Decisions
 
@@ -12,16 +12,19 @@ To install it into a project, ask a capable coding agent to read and execute [`i
 
 Keeping coordination in one place avoids competing planners and fragmented ownership. The design agent receives a small, distinct menu of subagents, which makes automatic routing more reliable.
 
-### Four Context-Isolated Subagents
+### Context-Isolated Subagents
 
-All subagents run on `github-copilot/gpt-5.6-luna`:
+The normal implementation, exploration, review, and test subagents run on `github-copilot/gpt-5.6-luna`:
 
 - `luna-worker` implements one bounded change within explicit ownership.
 - `luna-scout` maps unfamiliar code and recommends an implementation boundary.
 - `luna-reviewer` audits a supplied change for concrete defects and test gaps.
-- `luna-tester` executes validation and reports reproducible evidence.
+- `backend-tester` validates backend, service, script, and backend end-to-end behavior.
+- `frontend-tester` validates UI, browser, accessibility, and frontend end-to-end behavior.
 
-These roles are intentionally organized by work phase, not technology. A general worker can handle application code, migrations, documentation, or infrastructure when given the right scope and project constraints. This avoids flooding the parent with overlapping specialists.
+`heavy-subagent` runs on `github-copilot/gpt-5.6-sol` and is reserved for bounded emergency work that requires deeper reasoning after a specialized agent fails or cannot safely isolate the task.
+
+These roles are organized primarily by work phase, with separate test executors where environment and evidence boundaries differ. A general worker can handle application code, migrations, documentation, or infrastructure when given the right scope and project constraints. This avoids flooding the parent with overlapping specialists.
 
 ### Shallow Delegation
 
@@ -29,7 +32,7 @@ The config sets `subagent_depth` to `1`. Subagents provide context isolation and
 
 ### Permissions Encode Boundaries
 
-The scout, reviewer, and tester deny edits. The reviewer also restricts shell usage to read-only Git inspection. These boundaries live in configuration instead of being repeated as prompt prose.
+The scout and reviewer deny edits, while the test executors may request permission to correct tests within their narrow assignments. The reviewer also restricts shell usage to read-only Git inspection. These boundaries live in configuration instead of being repeated as prompt prose.
 
 ### Structured Returns
 
@@ -45,8 +48,8 @@ The product-goals section explicitly requires updates alongside changes to produ
 
 The supplied files use these exact GitHub Copilot model IDs:
 
-- Primary: `github-copilot/gpt-5.6-sol`
-- Subagents: `github-copilot/gpt-5.6-luna`
+- Primary and emergency heavy subagent: `github-copilot/gpt-5.6-sol`
+- Normal subagents: `github-copilot/gpt-5.6-luna`
 
 The installer should verify both IDs against the destination model provider before enabling the template. It must not silently substitute another model or rely on fallback behavior.
 
@@ -54,6 +57,9 @@ The installer should verify both IDs against the destination model provider befo
 
 - The bundled runtime configuration: default-agent, depth, and built-in-agent settings.
 - `design.md`: primary coordinator.
-- `luna-*.md`: implementation, exploration, review, and validation roles.
+- Agent definitions for implementation, exploration, review, frontend testing, backend testing, and bounded emergency work.
 - `AGENTS.md`: project-context template.
+- `action-driven-design`: skill for maintaining action-oriented `*-feature.md` design records.
+- `.agents/skills/playwright-cli`: official Microsoft Playwright CLI skill for browser automation. Installation also requires the matching `@playwright/cli` executable and a successful browser smoke check described in `install.md`.
+- `.opencode/docs/e2e-runner-feature.md`: required end-to-end runner implementation plan. The installer does not install or customize it automatically; it must notify the human to handle the plan for the destination project because reliable end-to-end proof is required for proper agentic development.
 - `install.md`: agent-oriented installation procedure.

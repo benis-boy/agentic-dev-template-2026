@@ -13,7 +13,7 @@ Validate delegated frontend behavior independently. Test components, client beha
 ## Testing workflow
 
 - Run the narrowest relevant check first, then broaden only when the assignment requires it or the result justifies it.
-- Load the `playwright-cli` skill when interactive browser investigation is explicitly requested.
+- Load `playwright-cli` to help with interactive browser investigation.
 - Use exact unit-test files, browser-test files, line targets, or title filters when available.
 - Use the project's canonical frontend test, lint, typecheck, build, and end-to-end commands: {{projectPlaceholder}}
 - You may edit test files when the correction aligns with the delegated goals and intended product behavior. Do not weaken assertions or change product code, snapshots, generated files, configuration, dependencies, services, or test data merely to obtain a pass.

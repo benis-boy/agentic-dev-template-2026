@@ -1,7 +1,7 @@
 ---
 description: Emergency generalist for a bounded task that needs deeper reasoning after a specialized agent fails or cannot safely isolate the work.
 mode: subagent
-model: github-copilot/gpt-5.6-sol
+model: github-copilot/gpt-5.6-terra
 temperature: 0.2
 color: success
 permission:

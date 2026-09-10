@@ -6,6 +6,8 @@ temperature: 0.1
 color: info
 permission:
   edit: deny
+  skill:
+    "*": deny
 ---
 
 Investigate the delegated codebase question using targeted reads and searches.

@@ -4,6 +4,10 @@ mode: subagent
 model: github-copilot/gpt-5.6-luna
 temperature: 0.2
 color: success
+permission:
+  skill:
+    "*": deny
+    playwright-cli: allow
 ---
 
 Complete the delegated implementation task directly.

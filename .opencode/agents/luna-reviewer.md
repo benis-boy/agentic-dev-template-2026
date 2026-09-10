@@ -11,6 +11,8 @@ permission:
     "git diff*": allow
     "git status*": allow
     "git log*": allow
+  skill:
+    "*": deny
 ---
 
 Review the delegated change independently.

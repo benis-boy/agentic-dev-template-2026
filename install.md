@@ -21,15 +21,22 @@ Copy the supplied agent and skill files, except for `.opencode/docs/e2e-runner-f
 2. Replace placeholders with concise, concrete project facts such as authoritative files, generation boundaries, canonical test commands, deployment constraints, reliability rules, relevant skills, and system-of-record decisions.
 3. Tailor each placeholder to that agent's role. Do not paste the same generic project summary into every file.
 4. Keep the agent descriptions and ownership boundaries distinct. Do not add language- or framework-specific agents unless repeated real work demonstrates a need.
-5. Search the installed files for the literal string `{{projectPlaceholder}}`. Installation is incomplete if any occurrence remains.
+5. Classify destination skills as orchestration, coding, frontend testing, backend testing, or another evidenced role. Keep `"*": deny`, then assign skills by agent responsibility: `design` gets orchestration only; `heavy-subagent` gets orchestration, coding, and testing; `luna-worker` gets coding and testing; `luna-reviewer` gets coding; `luna-scout` gets none; `frontend-tester` gets UI testing and UI coding; `backend-tester` gets backend testing. Do not grant wildcard skill access or invent a category match when the destination has no relevant skill.
+6. Search the installed files for the literal string `{{projectPlaceholder}}`. Installation is incomplete if any occurrence remains.
 
-## 3. Install And Verify Playwright CLI
+## 3. Install Goal Documentation Workflow
+
+Copy `.opencode/skills/goal-oriented-design` and `.opencode/commands/init-goals.md` into the destination, preserving existing files and resolving any destination-specific references as needed. Do not run initialization or infer goals silently during installation.
+
+After restarting the agent runtime, in a **new/fresh session**, the human must invoke `/init-goals`. Design will present inferred candidates for human correction and explicit approval before writing authoritative goal additions. Installation remains incomplete for goal-driven use until the goal tree, proof inventory, and index are seeded and reviewed. Include this required follow-up in the final handoff report.
+
+## 4. Install And Verify Playwright CLI
 
 Install the official Playwright CLI and its browser-automation skill so frontend agents can inspect and verify real browser behavior. Do not treat the presence of a copied skill file as proof that the executable or browser works.
 
 1. Confirm Node.js 18 or newer is available with `node --version`. Stop and report the blocker if it is not.
 2. Install the current official CLI with `npm install -g @playwright/cli@latest`.
-3. From the destination repository root, run `playwright-cli install --skills=agents`. This installs or refreshes the matching `playwright-cli` skill under `.agents/skills/playwright-cli`, which opencode discovers automatically.
+3. From the destination repository root, run `playwright-cli install --skills=agents`, then move the installed `.agents/skills/playwright-cli` directory to `.opencode/skills/playwright-cli` and remove the empty `.agents` directories. The CLI does not currently offer an opencode installation target, while this template standardizes project skills under `.opencode/skills`.
 4. Install Chromium and its required host dependencies with `playwright-cli install-browser chromium --with-deps`. If elevated permission is required, ask the human to approve or perform this step; do not claim browser support is ready when dependency installation fails.
 5. Confirm command discovery with `playwright-cli --version` and `playwright-cli --help`.
 6. Perform a real browser smoke check with a disposable named session:
@@ -41,9 +48,9 @@ Install the official Playwright CLI and its browser-automation skill so frontend
    ```
 
    The evaluation must print `playwright-cli-ready`, and the close command must succeed. On failure, preserve the error, attempt `playwright-cli -s=install-check close` only for cleanup, and report installation as blocked rather than weakening the check.
-7. Confirm `.agents/skills/playwright-cli/SKILL.md` exists. Restart opencode after installation so the newly installed skill is discovered.
+7. Confirm `.opencode/skills/playwright-cli/SKILL.md` exists. Restart opencode after installation so the newly installed skill is discovered.
 
-## 4. Require A Project End-to-End Runner Plan
+## 5. Require A Project End-to-End Runner Plan
 
 Do not copy, merge, customize, or resolve placeholders in `.opencode/docs/e2e-runner-feature.md` during template installation. It is a reference implementation plan that requires deliberate product, platform, and test-infrastructure decisions by the destination project's human maintainers.
 
@@ -52,7 +59,7 @@ Do not copy, merge, customize, or resolve placeholders in `.opencode/docs/e2e-ru
 3. Report this as a required follow-up, not as an installed file, unresolved installation placeholder, or optional suggestion.
 4. Do not claim installation provides end-to-end readiness merely because the reference plan exists in this template.
 
-## 5. Merge AGENTS.md Carefully
+## 6. Merge AGENTS.md Carefully
 
 Treat the destination's existing `AGENTS.md` as user-owned project context.
 
@@ -63,7 +70,7 @@ Treat the destination's existing `AGENTS.md` as user-owned project context.
 5. Add the living-summary rule: product goals must be updated in the same change when product direction, capability boundaries, or system-of-record decisions evolve.
 6. Keep detailed architecture and operations documentation in their dedicated files, and link to those files from `AGENTS.md` when every agent needs to know they are authoritative.
 
-## 6. Validate And Hand Off
+## 7. Validate And Hand Off
 
 1. Use the runtime's configuration-inspection mechanism from the destination repository and confirm `design` is the default primary agent on `github-copilot/gpt-5.6-sol`.
 2. Confirm the intended template subagents are registered, the normal subagents use `github-copilot/gpt-5.6-luna`, and `heavy-subagent` uses `github-copilot/gpt-5.6-sol`.
@@ -72,4 +79,5 @@ Treat the destination's existing `AGENTS.md` as user-owned project context.
 5. Run relevant repository checks when the installation changes files covered by lint or documentation validation.
 6. Summarize every installed or merged file, any decisions made, model verification results, Playwright CLI and browser verification results, unresolved risks, and the required human follow-up for `.opencode/docs/e2e-runner-feature.md`.
 7. Tell the human-in-the-loop to review all agent prompts, permissions, project facts, and `AGENTS.md` guidance before relying on the setup.
-8. Tell the human to restart the agent runtime because configuration and agent files are loaded at startup.
+8. Tell the human to restart the agent runtime because configuration and agent files are loaded at startup, then start a fresh session and invoke `/init-goals`.
+9. Report that human correction and approval must precede authoritative goal writes, and that goal-driven installation is incomplete until initialization is completed.

@@ -6,6 +6,10 @@ temperature: 0.2
 color: success
 permission:
   task: deny
+  skill:
+    "*": deny
+    goal-oriented-design: allow
+    playwright-cli: allow
 ---
 
 You are a context-restricted emergency generalist. You may investigate, design, implement, review, diagnose, or verify, but only within the explicit assignment packet from the primary agent.

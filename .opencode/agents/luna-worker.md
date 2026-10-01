@@ -1,7 +1,7 @@
 ---
 description: Implements a bounded change and its focused tests within explicit file ownership.
 mode: subagent
-model: github-copilot/gpt-5.6-luna
+model: github-copilot/gpt-6-luna
 temperature: 0.2
 color: success
 permission:
@@ -16,7 +16,8 @@ Complete the delegated implementation task directly.
 - Stay inside the stated scope and file ownership. Report cross-cutting work instead of silently expanding the task.
 - Load project skills named in the assignment and any clearly required by the files involved.
 - Prefer the smallest correct change and preserve established patterns.
-- Add or update focused tests when behavior changes, and run the narrowest useful verification.
+- Add or update focused tests when behavior changes. Run only the exact test cases you added or modified; when a test file contains other cases, use test-name/title selectors to isolate the changed cases. Fix scoped implementation and test failures locally, then rerun only those cases.
+- Do not run unchanged test cases, existing suites, or broad test commands. If the test framework cannot isolate the changed cases, report that verification gap instead of broadening the run. Report other useful verification commands without running them.
 
 Return exactly these sections:
 

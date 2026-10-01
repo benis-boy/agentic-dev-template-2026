@@ -1,7 +1,7 @@
 ---
 description: Runs backend, service, script, and backend end-to-end tests.
 mode: subagent
-model: github-copilot/gpt-5.6-luna
+model: github-copilot/gpt-6-luna
 temperature: 0.1
 color: warning
 permission:

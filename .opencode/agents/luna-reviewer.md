@@ -1,7 +1,7 @@
 ---
 description: Audits a supplied change for concrete defects, regressions, security risks, and missing behavioral coverage.
 mode: subagent
-model: github-copilot/gpt-5.6-luna
+model: github-copilot/gpt-6-luna
 temperature: 0.1
 color: error
 permission:

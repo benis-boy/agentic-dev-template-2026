@@ -8,13 +8,13 @@ To install it into a project, ask a capable coding agent to read and execute [`i
 
 ### One Primary Coordinator
 
-`design` is the only user-facing primary agent. It runs on `github-copilot/gpt-5.6-sol` and owns decomposition, delegation, integration, and final verification. It implements very small fixes directly when delegation would cost more than the work.
+`design` is the only user-facing primary agent. It runs on `github-copilot/gpt-6.1-sol` and owns decomposition, routing, integration, and independent final verification. It implements very small fixes directly when delegation would cost more than the work, but does not run tests itself.
 
 Keeping coordination in one place avoids competing planners and fragmented ownership. The design agent receives a small, distinct menu of subagents, which makes automatic routing more reliable.
 
 ### Context-Isolated Subagents
 
-The normal implementation, exploration, review, and test subagents run on `github-copilot/gpt-5.6-luna`:
+The normal implementation, exploration, review, and test subagents run on `github-copilot/gpt-6-luna`:
 
 - `luna-worker` implements one bounded change within explicit ownership.
 - `luna-scout` maps unfamiliar code and recommends an implementation boundary.
@@ -22,13 +22,15 @@ The normal implementation, exploration, review, and test subagents run on `githu
 - `backend-tester` validates backend, service, script, and backend end-to-end behavior.
 - `frontend-tester` validates UI, browser, accessibility, and frontend end-to-end behavior.
 
-`heavy-subagent` runs on `github-copilot/gpt-5.6-sol` and is reserved for bounded emergency work that requires deeper reasoning after a specialized agent fails or cannot safely isolate the task.
+`heavy-subagent` runs on `github-copilot/gpt-6.1-sol` and is reserved for bounded emergency work that requires deeper reasoning after a specialized agent fails or cannot safely isolate the task.
 
 These roles are organized primarily by work phase, with separate test executors where environment and evidence boundaries differ. A general worker can handle application code, migrations, documentation, or infrastructure when given the right scope and project constraints. This avoids flooding the parent with overlapping specialists.
 
-### Shallow Delegation
+### Bounded Delegation
 
-The config sets `subagent_depth` to `1`. Subagents provide context isolation and bounded execution; they do not create deeper delegation trees. Independent implementation slices may run in parallel, but one coherent worker is preferred by default.
+The config sets `subagent_depth` to `2` to support an explicitly bounded emergency delegation when Design supplies the permitted target names, purpose, and self-contained context. Design alone owns routing and supplies any heavy-subagent delegation targets; normal agents are ordinarily leaves and do not receive a peer-role catalogue. Independent implementation slices may run in parallel, but one coherent worker is preferred by default.
+
+Workers add or update focused tests, run only the exact cases they changed, and fix scoped failures locally. They do not run unchanged suites or broaden checks when case isolation is unsupported. This fast author-local feedback is distinct from independent final verification: Design delegates broader or independent checks to the dedicated backend or frontend testers and does not execute tests itself. For UI locator attributes, Design arranges any Scout inspection and passes its file-and-line findings and the exact UI-source allowlist to the frontend tester; the tester does not need a nested Scout handoff.
 
 ### Permissions Encode Boundaries
 
@@ -48,8 +50,8 @@ The product-goals section explicitly requires updates alongside changes to produ
 
 The supplied files use these exact GitHub Copilot model IDs:
 
-- Primary and emergency heavy subagent: `github-copilot/gpt-5.6-sol`
-- Normal subagents: `github-copilot/gpt-5.6-luna`
+- Primary and emergency heavy subagent: `github-copilot/gpt-6.1-sol`
+- Normal subagents: `github-copilot/gpt-6-luna`
 
 The installer should verify both IDs against the destination model provider before enabling the template. It must not silently substitute another model or rely on fallback behavior.
 

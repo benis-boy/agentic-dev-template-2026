@@ -10,8 +10,8 @@ Determine where the destination project stores project-scoped agent configuratio
 2. Inspect parent-directory and user-level configuration only to understand inherited settings; install project files in the destination repository unless the human explicitly requests a global installation.
 3. Prefer the project's existing agent directory and configuration layout. If none exists, preserve the directory structure supplied by this template.
 4. Read the current configuration and agent files before changing them. Preserve unrelated providers, plugins, permissions, commands, skills, references, and experimental settings.
-5. Use the runtime's model-discovery mechanism to verify that both `github-copilot/gpt-5.6-sol` and `github-copilot/gpt-5.6-luna` are available. Stop and report the blocker rather than substituting models or accepting fallback behavior.
-6. Merge the supplied configuration into the existing config. Set `default_agent` to `design`, set `subagent_depth` to `1`, and resolve naming conflicts deliberately. Do not blindly replace the whole config.
+5. Use the runtime's model-discovery mechanism to verify that both `github-copilot/gpt-6.1-sol` and `github-copilot/gpt-6-luna` are available. Stop and report the blocker rather than substituting models or accepting fallback behavior.
+6. Merge the supplied configuration into the existing config. Set `default_agent` to `design`, set `subagent_depth` to `2`, and resolve naming conflicts deliberately. Do not blindly replace the whole config.
 
 ## 2. Resolve Every Placeholder
 
@@ -21,8 +21,9 @@ Copy the supplied agent and skill files, except for `.opencode/docs/e2e-runner-f
 2. Replace placeholders with concise, concrete project facts such as authoritative files, generation boundaries, canonical test commands, deployment constraints, reliability rules, relevant skills, and system-of-record decisions.
 3. Tailor each placeholder to that agent's role. Do not paste the same generic project summary into every file.
 4. Keep the agent descriptions and ownership boundaries distinct. Do not add language- or framework-specific agents unless repeated real work demonstrates a need.
-5. Classify destination skills as orchestration, coding, frontend testing, backend testing, or another evidenced role. Keep `"*": deny`, then assign skills by agent responsibility: `design` gets orchestration only; `heavy-subagent` gets orchestration, coding, and testing; `luna-worker` gets coding and testing; `luna-reviewer` gets coding; `luna-scout` gets none; `frontend-tester` gets UI testing and UI coding; `backend-tester` gets backend testing. Do not grant wildcard skill access or invent a category match when the destination has no relevant skill.
-6. Search the installed files for the literal string `{{projectPlaceholder}}`. Installation is incomplete if any occurrence remains.
+5. Preserve bounded delegation: Design owns routing and supplies any explicit heavy-subagent delegation targets, purpose, and self-contained context; normal agents are ordinarily leaves. Workers add or update focused tests, run only exact test cases they changed, and fix scoped failures locally. Design assigns independent/broader final test execution to dedicated testers rather than running tests itself. For UI locator edits, Design arranges Scout inspection and gives frontend-tester the file-and-line findings and exact UI-source allowlist; frontend-tester does not need nested Scout delegation.
+6. Classify destination skills as orchestration, coding, frontend testing, backend testing, or another evidenced role. Keep `"*": deny`, then assign skills by agent responsibility: `design` gets orchestration only; `heavy-subagent` gets orchestration, coding, and testing; `luna-worker` gets coding and testing; `luna-reviewer` gets coding; `luna-scout` gets none; `frontend-tester` gets UI testing and UI coding; `backend-tester` gets backend testing. Do not grant wildcard skill access or invent a category match when the destination has no relevant skill.
+7. Search the installed files for the literal string `{{projectPlaceholder}}`. Installation is incomplete if any occurrence remains.
 
 ## 3. Install Goal Documentation Workflow
 
@@ -72,8 +73,8 @@ Treat the destination's existing `AGENTS.md` as user-owned project context.
 
 ## 7. Validate And Hand Off
 
-1. Use the runtime's configuration-inspection mechanism from the destination repository and confirm `design` is the default primary agent on `github-copilot/gpt-5.6-sol`.
-2. Confirm the intended template subagents are registered, the normal subagents use `github-copilot/gpt-5.6-luna`, and `heavy-subagent` uses `github-copilot/gpt-5.6-sol`.
+1. Use the runtime's configuration-inspection mechanism from the destination repository and confirm `design` is the default primary agent on `github-copilot/gpt-6.1-sol` and `subagent_depth` is `2`.
+2. Confirm the intended template subagents are registered, the normal subagents use `github-copilot/gpt-6-luna`, and `heavy-subagent` uses `github-copilot/gpt-6.1-sol`.
 3. Confirm built-in agent changes do not conflict with destination requirements.
 4. Check configuration syntax, Markdown formatting, duplicate descriptions, unresolved placeholders, the Playwright CLI smoke-check result, and the Git diff.
 5. Run relevant repository checks when the installation changes files covered by lint or documentation validation.

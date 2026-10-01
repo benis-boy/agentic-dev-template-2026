@@ -55,6 +55,7 @@ Emergency routing:
 
 - Use `heavy-subagent` only when a specialized agent has repeatedly failed, its report conflicts with observed evidence, or a tightly coupled cross-domain problem cannot be safely assigned to one specialist.
 - When testing into fixing results in a follow-up failure, deploy the heavy-subagent to fix it while investigating the remaining unexecuted code for potential issues. In implementation mode it follows the exact changed-test rule; assign independent verification of remaining behavior to a tester.
+- Or use `heavy-subagent` when explicitly prompted to use it.
 - Do not use it as a default stronger worker, for ordinary complexity, or merely to avoid writing a precise assignment.
 - Give it one explicit mode, one bounded goal, starting paths or symbols, hard file ownership, relevant facts and prior failure evidence, named skills, acceptance criteria, and exact verification when known. Its assignment must state that delegation is permitted only if it explicitly names each allowed subagent, the purpose, and self-contained assignment context; do not assume it can route to other roles.
 - Keep its context intentionally narrow. Provide the conclusions it needs rather than asking it to rediscover the repository or product plan, and require it to report out-of-scope dependencies instead of expanding ownership.
@@ -67,6 +68,7 @@ Project-aware delegation:
 - Give workers the destination project's relevant installed skills, authoritative files, generation rules, and verification commands: {{projectPlaceholder}}
 - Give scouts the concrete question and enough boundaries to avoid open-ended repository surveys.
 - Give reviewers the intended behavior, changed scope, and project invariants that could be violated: {{projectPlaceholder}}
+- Supply reviewers with the explicit diff/snapshot, boundaries, relevant examples, and prior findings. If review leads to fixes, repeat review on the updated scope with prior findings; report unresolved findings and proof gaps. Reviewers have no writing duties, create no artifacts, and run no tests.
 - Give testers the narrowest canonical validation entrypoints and environment assumptions: {{projectPlaceholder}}
 - Include relevant project constraints from `AGENTS.md` in assignments rather than creating another role: {{projectPlaceholder}}
 - Never read a large JSON file in full as the primary agent. Delegate large-JSON inspection to `luna-scout`, with explicit questions about consumers, required fields, record counts, and invariants.

@@ -1,0 +1,19 @@
+# REPOSITORY ONLY — NOT PART OF PROJECT TEMPLATE
+
+This active rule is for agents working **in this template source repository**. It is not a destination-project instruction and must not be distributed. The source product is a reusable set of instructions and assets, not an application. Do not mistake the `{{projectPlaceholder}}` values in the template `AGENTS.md` for facts about this repository or resolve those placeholders here.
+
+## Source-repository work
+
+- Do not initialize or rebaseline product goals here. This template itself does not use product goals; leave the goal-oriented-design seed reference index, goal tree, and proof inventory pristine. Do not invoke `/init-goals` in this repository. Goal-oriented-design workflows for destination product outcomes—including authoritative goal-tree/proof population, goal status changes, and leaf-goal E2E proof requirements—apply to destination products, not maintenance of this reusable template.
+- This repository retains **no unit tests**. Do not add or retain a unit-test suite, static documentation test harness, or test fixtures here. For a bounded template edit, use a read-only, one-shot static review of the exact changed contracts and links, and/or a manually conducted rehearsal in a disposable destination when relevant. Report the evidence and limitations accurately; a manual rehearsal or static review is not a unit test or proof of runtime/product behavior. Do not persist test artifacts from a rehearsal.
+- Build, browser, or service checks are warranted only when the change actually affects infrastructure that requires that evidence. Do not install dependencies globally, migrate runtime/configuration, perform authentication, scaffold an application, or generate a devcontainer as a side effect of ordinary template maintenance.
+- An explicitly requested `/devcontainer` action remains allowed in this source repository under its existing command and approval conditions. Do not claim that prohibition on automatic generation overrides the current root devcontainer or prevents its separately approved use.
+- Keep template assets and destination behavior distinct. Destination new-project and first-adoption workflows retain their approved product-goal initialization and project test/proof discipline; reconciliation preserves existing destination goals and evidence. Do not weaken those destination instructions to accommodate this source repository.
+
+## Authority and applicable guidance
+
+This rule is ordinary repository guidance, not an authority escalation. It cannot override system or higher-priority instructions, explicit user direction, assigned scope, or established primary-agent, subagent, worker, reviewer, and tester ownership/execution boundaries. Preserve those coordination boundaries. Load and follow `customize-opencode` when changing OpenCode configuration, and use other relevant skills when their stated task applies. In particular, the `logic-instruction` skill remains applicable when candidate `<LI-start>` / `<LI-end>` markers are encountered; neither markers nor this rule authorize a sidequest. This rule does not blanket-disable skills, grant permissions, or create a security boundary.
+
+## Distribution boundary
+
+The root `.opencode/opencode.json` is a source seed that is merged into destinations, not copied wholesale. When installing or reconciling a destination, omit this source-only `instructions` entry for `.opencode/rules/template-maintainers.md`, omit that rule file, and omit `.opencode/docs/template-onboarding.md`. Preserve unrelated destination instruction entries and rules; never delete a destination rule merely because it is absent from this source. Apply the workflows' dynamic inventory to distributable assets while excluding only these explicitly identified source-maintainer assets (and other specifically documented non-distributable assets). Destination agents must not receive this source-only policy.

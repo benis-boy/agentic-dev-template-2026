@@ -7,6 +7,11 @@ Initialize or rebaseline the project's goal documentation. This command has two
 approval-gated phases. Complete Phase 1, present its result, and stop. If the
 human requests corrections, present the revised proposal and stop again. Perform
 Phase 2 only after the human explicitly approves the current proposal for write.
+For template onboarding, first read `docs/template-setup.md` when present. Keep
+the recorded original product-goal input distinct from inferred/approved goals.
+Never populate the intentionally uninitialized goal-tree, proof-inventory, or
+index seeds from this template's own onboarding outcomes. On template update,
+preserve existing goal documentation; do not reinitialize by default.
 
 ## Phase 1 — Discover and propose
 

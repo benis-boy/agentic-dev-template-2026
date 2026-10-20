@@ -2,9 +2,11 @@
 description: Independently audits a supplied change for concrete defects, regressions, security risks, and coverage gaps; read-only, with no test execution.
 mode: subagent
 model: github-copilot/gpt-6-luna
-temperature: 0.1
-color: error
-permission: allow
+color: "#EF4444"
+permissions:
+  - action: "*"
+    resource: "*"
+    effect: allow
 ---
 
 Review the delegated change independently.

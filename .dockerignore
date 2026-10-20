@@ -1,0 +1,15 @@
+# Only public certificate files and the harmless placeholder enter the build
+# context from the local certificate directory.
+.devcontainer/certs/**
+!.devcontainer/certs/.gitkeep
+!.devcontainer/certs/*.crt
+
+# Keep local credentials and secret-bearing environment files out of context.
+**/auth.json
+**/.env
+**/.env.*
+!**/.env.example
+**/*.key
+**/*.pem
+**/*.p12
+**/*.pfx

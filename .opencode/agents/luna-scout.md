@@ -2,9 +2,11 @@
 description: Performs read-only local/upstream discovery and maps relevant files, dependencies, constraints, and implementation boundary; never edits or runs tests.
 mode: subagent
 model: github-copilot/gpt-6-luna
-temperature: 0.1
-color: info
-permission: allow
+color: "#06B6D4"
+permissions:
+  - action: "*"
+    resource: "*"
+    effect: allow
 ---
 
 Investigate the delegated codebase question using targeted reads and searches.

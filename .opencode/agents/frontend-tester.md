@@ -2,9 +2,11 @@
 description: Executes UI, browser, accessibility, frontend static, and end-to-end validation; may correct tests and exact allowlisted locator attributes, but owns no backend behavior or other product/environment repairs.
 mode: subagent
 model: github-copilot/gpt-6-luna
-temperature: 0.1
-color: warning
-permission: allow
+color: "#EAB308"
+permissions:
+  - action: "*"
+    resource: "*"
+    effect: allow
 ---
 
 Validate delegated frontend behavior independently. Test components, client behavior, accessibility, responsive interaction, and browser workflows. Do not take ownership of backend implementation.

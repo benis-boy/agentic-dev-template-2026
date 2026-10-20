@@ -1,0 +1,34 @@
+{
+  "name": "Agentic Development Template",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/workspaces/agentic-dev-template-2026",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/agentic-dev-template-2026,type=bind,consistency=cached",
+  "containerUser": "root",
+  "remoteUser": "node",
+  "overrideCommand": false,
+  "init": true,
+  "mounts": [
+    "source=agentic-dev-template-2026-opencode-v2-sessions,target=/home/node/.opencode-v2,type=volume",
+    "source=agentic-dev-template-2026-opencode-v2-owner-lock,target=/run/opencode-owner,type=volume",
+    "source=${localEnv:HOME}/.agentic-devcontainer-auth/${devcontainerId},target=/run/opencode-auth,type=bind,readonly",
+    "source=${localEnv:HOME}/.agentic-devcontainer-auth-receipts/${devcontainerId},target=/run/opencode-auth-receipt,type=bind"
+  ],
+  "initializeCommand": [
+    "bash",
+    "${localWorkspaceFolder}/.devcontainer/scripts/stage-legacy-auth.sh",
+    "${devcontainerId}"
+  ],
+  "containerEnv": {
+    "HOME": "/home/node",
+    "USER": "node",
+    "LOGNAME": "node",
+    "XDG_DATA_HOME": "/home/node/.opencode-v2/xdg/data",
+    "XDG_STATE_HOME": "/home/node/.opencode-v2/xdg/state",
+    "XDG_CONFIG_HOME": "/home/node/.opencode-v2/xdg/config",
+    "XDG_CACHE_HOME": "/home/node/.opencode-v2/xdg/cache",
+    "NODE_EXTRA_CA_CERTS": "/etc/ssl/certs/ca-certificates.crt"
+  }
+}

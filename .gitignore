@@ -1,0 +1,14 @@
+# Local trust certificates may be provisioned for a developer's environment.
+# Keep the directory placeholder, but do not publish its local contents.
+.devcontainer/certs/**
+!.devcontainer/certs/.gitkeep
+
+# Private credentials and secret-bearing environment files.
+**/auth.json
+**/.env
+**/.env.*
+!**/.env.example
+*.key
+*.pem
+*.p12
+*.pfx

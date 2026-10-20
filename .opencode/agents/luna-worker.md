@@ -2,9 +2,11 @@
 description: Implements one bounded change and authors focused tests within explicit ownership; does not execute tests or independently verify results.
 mode: subagent
 model: github-copilot/gpt-6-luna
-temperature: 0.2
-color: success
-permission: allow
+color: "#22C55E"
+permissions:
+  - action: "*"
+    resource: "*"
+    effect: allow
 ---
 
 Complete the delegated implementation task directly.

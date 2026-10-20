@@ -1,79 +1,68 @@
-# OpenCode v2 Migration Readiness
+# OpenCode V2 Native Configuration and Migration
 
-**Status: planning only; v2 compatibility and authentication migration have not been tested.** The active template remains a v1 configuration. Do not upgrade the runtime, packages, account credentials, or active agent files as part of template installation. The installed runtime observed for this template is `1.18.35`. The reported latest stable release on 2026-10-19 is `1.19.3` (Oct 16); v2 documentation and distribution are a separate channel. Check the [latest stable release](https://github.com/anomalyco/opencode/releases/latest) and [v2 docs](https://opencode.ai/v2/docs/) independently before planning a migration.
+**Status: the reusable source template has been converted to native OpenCode V2 configuration and agent-definition shapes. Runtime acceptance remains unverified.** This change does not upgrade or install OpenCode, packages, or credentials and does not test a live model call. Do not use a V1 runtime with this V2-only active configuration: on a V1 destination, keep the active config/agents unchanged until a separately approved upgrade to a compatible V2 release. For first install and reconciliation, follow [`install.md`](../../install.md) and [`update.md`](../../update.md); this guide describes behavior and verification, not permission to change runtime/auth state.
 
-This guide is a staging checklist, not a claim of supported or verified v2 behavior. Keep any candidate v2 files in a separate, deliberately undiscoverable staging target or branch. Never place v2 agent definitions in the active `.opencode/agents` directory while using a v1 runtime.
+The V2 migration is optional in OpenCode generally. This template adopts the native format for clarity and consistency. Start from the full [V2 migration guide](https://opencode.ai/v2/docs/migrate-v1) and exact runtime docs; V1 supported functionality is intended to remain compatible, but a template configured with V2-only native fields must not be pointed back at V1. V1 and V2 use the same configuration locations, so retain a safe copy before converting a destination.
 
-## 1. Freeze and stage safely
+## Native configuration and permission behavior
 
-1. Record the current runtime version and preserve the current working v1 configuration and agent prompts in version control. Do not change pinned model IDs, package versions, or credentials as a side effect.
-2. Back up OpenCode user data securely **outside the repository** before first launch of a candidate v2 runtime. Restrict access and retention; never dump tokens, copy credentials into notes, or commit a backup. Do not assume a particular auth database filename or database layout.
-3. Create a separate migration branch/profile and stage converted files outside discoverable active agent directories. Use the documentation and schema that match the exact candidate runtime; schemas and docs can drift independently.
-4. Find supported commands from that runtime's CLI help. Do not assume v1 diagnostic commands exist in v2.
+The source `.opencode/opencode.json` now uses the following native V2 shape:
 
-## 2. Convert agent/config fields deliberately
-
-Use the [v2 agent documentation](https://opencode.ai/v2/docs/agents/) and the candidate runtime's matching schema as authority. The conversions below preserve this template's intent; they are not a mechanical search-and-replace recipe.
-
-| v1 field or behavior | v2 staging conversion |
+| Former V1 field/behavior | Native V2 form in this template |
 | --- | --- |
-| Root `agent` map | Rename to `agents`. |
-| Agent `disable: true` | Rename to `disabled: true`. Keep built-ins `build`, `plan`, `general`, and `explore` disabled; v2 has no builtin `scout`, so do not create a `scout` builtin setting. |
-| Permission mapping | Replace with an ordered `permissions` list of `{ "action": ..., "resource": ..., "effect": ... }`. Rules are evaluated in order and the **last matching rule wins**. For this template's unrestricted policy, use a catchall allow at both root and each agent; remove or supersede inherited narrower asks/denials in the resolved config. |
-| Permission action `bash` | Rename action to `shell`. |
-| Permission action `task` | Rename action to `subagent`. |
-| Agent role defaults | Add explicit `mode: primary` to Design and `mode: subagent` to every leaf; v2 defaults to primary, so omission could accidentally grant primary status. |
-| Semantic color names such as `primary`, `success`, `info`, `error`, `warning` | Replace with six-digit hex color values appropriate to the role. |
-| `temperature`, `top_p`, `tools`, `maxSteps` | Remove these unsupported/removed settings from the staged v2 agent configuration. Do not move temperature to request-agent overlays as if that would make it active: request overlays are currently preserved but not sent. |
-| Markdown agent body | Body remains the system prompt. Convert any JSON `prompt` field to the v2 `system` field. |
-| `subagent_depth` | Do not add or assume a replacement setting; it is absent from this v1 template and no v2 depth behavior is assumed here. |
+| `permission: "allow"` | `permissions: [{ "action": "*", "resource": "*", "effect": "allow" }]` |
+| `agent` map | `agents` map |
+| `agents.<id>.disable: true` | `agents.<id>.disabled: true` |
+| Design default | `default_agent: "design"` (unchanged) |
+| Schema URL | `$schema: "https://opencode.ai/config.json"` (unchanged) |
+| Source-only maintainer instruction | Retained in this source checkout; omit that entry and rule when installing in a destination |
 
-This template intentionally has no permission-based role allowlists or runtime restrictions. In v2 staging, set this catchall at the root and repeat it for every template agent. The last-match rule means inherited or otherwise later matching asks/denials must be removed or superseded in the resolved config, with the resolved outcome inspected before reliance. Do not add deny/allowlist examples for tools, skills, files, or delegation. Role boundaries remain prompt instructions only.
+The built-in `build`, `plan`, `general`, and `explore` agents stay disabled. V2 has no built-in `scout`; Scout remains a template-defined agent role, not a builtin config entry. The repository's active `agents` definitions use native V2 frontmatter and role modes. The JSON schema URL is retained for editor validation; it is not used here as authority for V2 shape because it accepts deprecated V1 fields too.
 
-For example, after confirming that the selected v2 schema uses `*` for every action and resource, both root and each template agent use this staged permission list:
+The wildcard permission rule is intentionally broad: it allows every action on every resource, including paths outside the project. Do not add an `external_directory` ask rule to this template. Template role distinctions (including read-only Scout/Reviewer intent, bounded Worker scope, and tester-only execution) remain prompt instructions, not technical restrictions or security boundaries. OpenCode's ordered rules and higher-level policies still apply. During a destination merge, inspect its effective policies and preserve unrelated meaningful asks/denials; obtain explicit approval for a material conflict rather than deleting or superseding restrictions indiscriminately. This source config is not a security-policy template for untrusted agents or inputs.
 
-```json
-[
-  { "action": "*", "resource": "*", "effect": "allow" }
-]
-```
+## Agent definition mappings
 
-Confirm wildcard and resource semantics against the chosen v2 schema before using the staged example. Inspect the resolved root-plus-agent permissions to ensure there are no later matching ask/deny rules. If external policy still blocks an action, report it; do not claim the template bypasses controls outside OpenCode.
+Native V2 agent fields used by the template follow the official [agents guide](https://opencode.ai/v2/docs/agents):
 
-Disable v2 built-in agents explicitly using `agents.<name>.disabled` for `build`, `plan`, `general`, and `explore`. Do not rely on old config layout or v1 fallback behavior.
+| V1 field/behavior | V2 treatment |
+| --- | --- |
+| `permission` mapping | Ordered `permissions` rules; the template catchall is `{ "action": "*", "resource": "*", "effect": "allow" }` |
+| `disable` | `disabled` |
+| Role kind | Explicit `mode: primary` for Design and `mode: subagent` for leaf roles |
+| Semantic UI color names | Six-digit hex colors |
+| `temperature` | Removed from agent definitions. It is not restored via `request.body`: V2 currently preserves request overlays but does not send them with model requests, so that would not preserve active behavior. No active temperature setting is claimed. |
+| Markdown agent body | Remains the system prompt; no JSON `prompt` field is used |
+| Model pin | Exact provider/model pins remain as assigned; availability and live selection are not verified by this conversion |
 
-## 3. Verify identity and model selection
+Do not add technical role allowlists, shell restrictions, or `external_directory` prompts as a migration “hardening” step. The agent prompts express their assigned ownership and task boundaries. A destination may have its own policy; preserve it unless a separately reviewed, approved merge changes it.
 
-The selected model for a session persists independently of agent selection. For a fresh staged primary session, explicitly choose and verify `github-copilot/gpt-6.1-sol` for Design. Confirm the actual selected model for child sessions as well; do not assume changing agents changes model selection or that a missing pin falls back correctly. The normal pin remains `github-copilot/gpt-6-luna`; account discovery on 2026-10-19 showed no 6.1 Luna. Catalog discovery alone does not prove a child can use its assigned model; the approved staging smoke below must verify actual child identity. See [model policy](model-policy.md).
+## Onboarding and compatibility boundaries
 
-## 4. Plan authentication migration without exposing secrets
+- **V2 destination:** inspect the exact OpenCode release's config and agent docs, preserve its unrelated settings, review the permission effects, and merge only with approval. Restart OpenCode after compatible config/agent/skill/command changes and resume in a fresh session.
+- **V1 destination:** stop the active config/agent merge. Do not paste native V2 fields into V1 or silently upgrade/downgrade the runtime. Continue only after a separately approved runtime upgrade and exact-release review.
+- **Runtime absent:** record runtime/environment readiness as pending. Do not install a host V1 runtime as a prerequisite for V2 container work. A separately approved human/operator may follow the devcontainer instructions as plain text; this does not itself install or authenticate OpenCode.
+- **First install vs reconciliation:** first install may initialize destination goals only after compatible runtime and command/Design registration are confirmed and after required approvals. Reconciliation preserves existing goals and evidence; do not rerun `/init-goals` by default.
+- **Distribution exclusions:** omit source-only `.opencode/rules/template-maintainers.md`, its `instructions` entry in source `.opencode/opencode.json`, and `.opencode/docs/template-onboarding.md`; preserve unrelated destination rules/instructions. Apply dynamic inventory to all other distributable assets.
+- **No unsolicited side effects:** this migration does not upgrade the Node/OpenCode versions, touch package manifests/locks, install plugins, change container/runtime configuration, authenticate, copy sessions, invoke `/devcontainer`, or stage/commit/push files. Existing approval gates for runtime, auth, container generation, and destructive changes remain separate.
 
-In v1, auth is stored at `~/.local/share/opencode/auth.json`. In v2, saved API/OAuth accounts are stored server-side in SQLite. Supported legacy credentials are imported during database migration, but later account updates are **not written back** to `auth.json`.
+The V2 migration guide states that existing command and skill definitions remain supported; this template's command and skill files do not need format changes. There is no active plugin or server API consumer in this template. `.opencode/package.json` names `@opencode-ai/plugin`, but it has no evidenced consumer; leave the ignored manifest/lock and dependencies unchanged. Plugin and server API migration are outside this config conversion.
 
-- Back up relevant user data securely outside Git before launching v2; never print tokens, share raw credential files, or assume/inspect an undocumented `auth.db` path or schema.
-- Validate migration using a disposable profile/user or a user-managed environment with throwaway data and explicit approval. Do not prescribe fake OAuth injection or test against production credentials.
-- For GitHub Copilot, use the documented `/connect` device OAuth flow, then `/models` to refresh the active account's model list. Confirm account availability and the two exact model pins without exposing credentials.
-- Do not attempt a credentials migration or auth test in this template task. The account and database migration remain unverified until a human-approved staging run.
+## Verification and known gaps
 
-See the v2 [provider guide](https://opencode.ai/v2/docs/providers/) and [provider CLI guide](https://opencode.ai/v2/docs/cli/providers/) for current behavior.
+The conversion records intended file shapes, not runtime acceptance. As part of this change, no V2 runtime config inspection, model selection, inference, child-agent execution, permission resolution, login, auth import, or credential validation was performed. Acceptance remains **UNVERIFIED** for native config loading, the live Design/child model pins, actual agent behavior, and current authentication. Do not claim model calls or runtime compatibility were tested.
 
-## 5. Staged acceptance gates and rollback
+For a separately approved V2 acceptance exercise, use the exact selected release's CLI help and config/agent/permission docs to inspect the resolved config, confirm Design is the default primary and each role's mode/model, verify the four built-ins are disabled, and inspect effective permissions without probing role enforcement as a technical denial. Any live model/auth exercise requires separate human approval and a tester-owned, appropriately isolated profile; record exact model identity and cleanup evidence without exposing secrets. A static file review does not substitute for those checks.
 
-Before calling a v2 migration accepted, require all of the following on the chosen runtime and a disposable/user-managed staging profile:
+### Historical devcontainer authentication evidence (separate scope)
 
-1. Validate staged configuration against that runtime's matching schema and configuration documentation.
-2. Confirm only Design is primary, all role modes are explicit, exact model selections persist for a fresh primary and child session, and built-ins remain disabled.
-3. Inspect resolved ordered permissions at root and per agent and confirm the unrestricted catchall allow is effective without later matching ask/deny rules. Role behavior is evaluated from prompts and task outcomes, not permission-denial probes; scout/reviewer intent, worker scope, and tester-only execution remain instructions, not denied capabilities.
-4. Use a human-approved, disposable/user-managed staging profile to run a minimal tester-executed live smoke of a fresh Design session and one delegated child on the assigned pins. Record exact selected model identity for both and verify each completes its bounded task according to prompt role intent. Do not use production credentials or expose secrets.
-5. Verify v2 Copilot connection and model-list refresh through the documented `/connect` and `/models` flows without exposing secrets. In the approved disposable profile, validate supported auth import and a subsequent account update. Record completion and cleanup/rollback evidence, including removal or reset of disposable profile data by its owner.
-6. Exercise representative non-inference config/schema inspection and collect exact runtime/schema version evidence. These checks alone do not establish v2 readiness: the approved live child-model, permission, and auth-usability smoke gates are required for acceptance. Do not infer readiness from successful file conversion alone.
-
-If a gate fails, stop using the candidate profile and runtime, preserve diagnostic evidence without secrets, and restore the previous runtime/configuration from the secured backup. Do not delete or rewrite v1 auth data as an improvised rollback. Keep the active v1 template unchanged until a separately reviewed migration is accepted. No v2 acceptance gate has been run by this documentation change. Any live smoke requires explicit human approval, is executed by the assigned tester in staging, and must record exact model identity and cleanup evidence.
+The root devcontainer's exact-release notes retain historical evidence for the `@opencode/cli` v2.0.32 selection and its supported host OpenCode V1 GitHub Copilot credential import path. That previously implemented container path stages one existing host auth file only under its explicit approval gates and imports into its isolated persistent data volume; it does not establish general V2 auth readiness, token validity, model availability, or successful inference for this native-template migration. This document change did not run or alter that flow. Keep its separate runtime/auth gates and verification limitations intact.
 
 ## References
 
-- [OpenCode v2 documentation](https://opencode.ai/v2/docs/)
-- [Agents](https://opencode.ai/v2/docs/agents/)
-- [Providers](https://opencode.ai/v2/docs/providers/)
-- [Provider CLI](https://opencode.ai/v2/docs/cli/providers/)
-- [Latest stable release](https://github.com/anomalyco/opencode/releases/latest)
+- [V2 migration guide](https://opencode.ai/v2/docs/migrate-v1)
+- [V2 configuration](https://opencode.ai/v2/docs/config)
+- [V2 agents](https://opencode.ai/v2/docs/agents)
+- [V2 permissions](https://opencode.ai/v2/docs/permissions)
+- [V2 providers](https://opencode.ai/v2/docs/providers)
+- [V2 provider CLI](https://opencode.ai/v2/docs/cli/providers)

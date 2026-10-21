@@ -88,7 +88,7 @@ Treat the destination's existing `AGENTS.md` as user-owned project context.
 ## 8. Validate And Hand Off
 
 1. Use the installed V2 runtime's matching configuration documentation and CLI help to confirm `design` is the default primary agent on `github-copilot/gpt-6.1-sol`. Do not assume a CLI inspection command without checking that runtime's help; do not expect a `subagent_depth` key.
-2. Confirm the intended template subagents are registered, the normal subagents use `github-copilot/gpt-6-luna`, and `heavy-subagent` uses `github-copilot/gpt-6.1-sol`.
+2. Confirm the intended template subagents are registered, `agent-maintainer` and `heavy-subagent` use `github-copilot/gpt-6.1-sol`, and the normal subagents use `github-copilot/gpt-6-luna`.
 3. Confirm built-in agent changes do not conflict with destination requirements.
 4. Check configuration syntax, Markdown formatting, duplicate descriptions, unresolved placeholders, the Playwright CLI smoke-check result, and the Git diff.
 5. Run relevant repository checks when the installation changes files covered by lint or documentation validation.

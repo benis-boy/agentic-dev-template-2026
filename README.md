@@ -18,14 +18,14 @@ Keeping coordination in one place avoids competing planners and fragmented owner
 
 ### Context-Isolated Subagents
 
-The normal maintenance, implementation, exploration, review, and test subagents run on `github-copilot/gpt-6-luna`:
+The normal implementation, exploration, review, and test subagents run on `github-copilot/gpt-6-luna`:
 
 - `luna-worker` implements one bounded change and authors focused tests; it returns test commands unexecuted and does not independently verify.
 - `luna-scout` performs read-only local/upstream discovery; it never edits or runs tests.
 - `luna-reviewer` independently audits a supplied change; it never edits or runs tests.
 - `backend-tester` executes backend, service, script, configuration, static, and backend end-to-end validation, and may correct tests.
 - `frontend-tester` executes UI, browser, accessibility, frontend static, and end-to-end validation; it may correct tests and make only exact-file allowlisted locator-attribute edits.
-- `agent-maintainer` owns agent-definition Markdown and assigned root/nested `AGENTS.md` instruction maintenance; it is not a general documentation editor or orchestrator.
+- `agent-maintainer` owns agent-definition Markdown and assigned root/nested `AGENTS.md` instruction maintenance; it is not a general documentation editor or orchestrator, and is a role-specific Sol-pinned exception.
 
 `heavy-subagent` runs on `github-copilot/gpt-6.1-sol` and is an emergency replacement owner for exactly one explicit reconnaissance, diagnosis, implementation, or read-only review mode after a specialist fails, evidence conflicts, or a coupled task cannot safely fit one specialist. It is not a duplicate concurrent owner or self-certifier; implementation authors focused tests but does not execute them.
 
@@ -59,10 +59,10 @@ The product-goals section explicitly requires updates alongside changes to produ
 
 The supplied files pin these exact GitHub Copilot model IDs; the installer verifies availability and never silently substitutes a model or depends on fallback behavior:
 
-- Primary and emergency heavy subagent: `github-copilot/gpt-6.1-sol`
+- Primary, agent-maintainer, and emergency heavy subagent: `github-copilot/gpt-6.1-sol`
 - Normal subagents: `github-copilot/gpt-6-luna`
 
-Design uses Sol 6.1 for orchestration and heavy emergency work; Luna 6 is the normal subagent choice for bounded implementation, discovery, review, and testing. These are qualitative role choices, not comparative benchmark claims. Account availability and model catalog change; pin the exact discovered IDs and do not use an unverified latest alias or automatic substitute. See [model policy](.opencode/docs/model-policy.md) for dated pricing context and cost-conscious use.
+Design uses Sol 6.1 for orchestration, and the emergency heavy subagent and agent-maintainer are role-specific Sol exceptions; Luna 6 is the normal subagent choice for bounded implementation, discovery, review, and testing. These are qualitative role choices, not comparative benchmark claims. Account availability and model catalog change; pin the exact discovered IDs and do not use an unverified latest alias or automatic substitute. See [model policy](.opencode/docs/model-policy.md) for dated pricing context and cost-conscious use.
 
 The reusable source config and supplied agents now use native OpenCode V2 shapes. This documentation/configuration conversion does not install or upgrade OpenCode, packages, or credentials, and does not verify model calls or live runtime behavior. A V1 destination must stop before merging the V2-only active config/agent files until a separately approved runtime upgrade; never silently downgrade or overwrite its working configuration. See the [V2 migration guide](.opencode/docs/opencode-v2-migration.md) for mappings, migration caveats, and unverified acceptance gates. The historical host-version and compatibility evidence for the root devcontainer is recorded separately below and is not proof of this template migration.
 
@@ -72,7 +72,7 @@ The reusable source config and supplied agents now use native OpenCode V2 shapes
 - `.opencode/agents/design.md`: primary coordinator.
 - Agent definitions for coordination, agent maintenance, implementation, exploration, review, frontend testing, backend testing, and bounded emergency work.
 - `AGENTS.md`: project-context template.
-- `.opencode/skills/playwright-cli`: official Microsoft Playwright CLI skill for browser automation. Installation also requires the matching `@playwright/cli` executable and a successful browser smoke check described in `install.md`.
+- `.opencode/skills/playwright-cli`: official Microsoft Playwright CLI skill for browser automation. Bundled procedures are synchronized to [upstream commit `b1a5903`](https://github.com/microsoft/playwright-cli/tree/b1a5903c5b633b8c9f843ad7b629c2a78437040c/skills/playwright-cli), with local tool metadata retained. Installation also requires the matching `@playwright/cli` executable and a successful browser smoke check described in `install.md`.
 - `.opencode/skills/goal-oriented-design`: reusable goal mapping, status, proof, and independent-library lifecycle workflow.
 - `.opencode/skills/logic-instruction`: best-effort recognition, authorization, bounded execution, and resumption guidance for contextual LI blocks; the scenario matrix is not behavioral proof.
 - `.opencode/rules/template-maintainers.md`: active source-repository-only guidance; exclude this rule and its config instruction entry when distributing the template.

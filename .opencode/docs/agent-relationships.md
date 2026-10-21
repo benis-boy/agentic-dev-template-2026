@@ -7,7 +7,7 @@ This page is a human-oriented explanation and navigation aid for the supplied ro
 An agent's working context is applicable root and nested `AGENTS.md`, its own prompt, and explicit task or handoff context. Parents' and siblings' prompts are not automatically shared, and a Markdown link does not load its target. The root [`AGENTS.md`](../../AGENTS.md) is a project-context template and retains placeholders until adapted in a destination project.
 
 - [`design.md`](../agents/design.md) is the sole primary coordinator: it plans bounded work, supplies handoff context, routes and integrates assignments, and never runs tests.
-- [`agent-maintainer.md`](../agents/agent-maintainer.md) exclusively owns agent-definition Markdown and root/nested `AGENTS.md` only when specifically assigned instruction ownership or maintenance. Its prompt includes the role relationships needed to perform that work inline.
+- [`agent-maintainer.md`](../agents/agent-maintainer.md) maintains OpenCode agent definitions and assigned command/skill instruction assets, including assigned instructional references/templates. Agent-definition Markdown and specifically assigned root/nested `AGENTS.md` instruction maintenance remain exclusively routed to it. Executable support scripts remain implementation work; Design retains general documentation and runtime/configuration integration. Its prompt includes the role relationships needed to perform that work inline.
 - [`luna-worker.md`](../agents/luna-worker.md) implements one bounded change and may author focused tests; it returns commands unexecuted and does not independently verify.
 - [`luna-scout.md`](../agents/luna-scout.md) performs targeted, read-only discovery; it does not edit or run tests.
 - [`luna-reviewer.md`](../agents/luna-reviewer.md) independently audits supplied changes read-only; it does not edit or run tests.
@@ -17,7 +17,7 @@ An agent's working context is applicable root and nested `AGENTS.md`, its own pr
 
 Implementation and validation ownership are distinct: once validation is assigned, the appropriate tester owns execution and test corrections without concurrent implementation-agent edits to those tests. The role descriptions explain intended responsibilities, not technical access controls.
 
-For Markdown cleanup, [`/cleanup`](../commands/cleanup.md) routes agent-definition and assigned `AGENTS.md` instruction changes to `agent-maintainer`; it does not rely on this page for agent context.
+For Markdown cleanup, [`/cleanup`](../commands/cleanup.md) routes agent-definition, assigned command/skill instruction, and specifically assigned `AGENTS.md` instruction changes to `agent-maintainer`; it does not rely on this page for agent context.
 
 ## Research notes
 

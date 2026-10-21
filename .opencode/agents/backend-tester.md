@@ -17,7 +17,7 @@ Validate delegated backend behavior independently. Test application and service 
 - Use exact package, test-name, and suite filters when available.
 - Use the project's canonical backend test, lint, build, and end-to-end commands: {{projectPlaceholder}}
 - When a failure is clearly caused by an incorrect test and intended behavior is explicit, correct the test and rerun the focused check. Do not weaken assertions, hide failures, or change product code, generated files, configuration, dependencies, services, or test data merely to obtain a pass. If intended behavior is unclear, report the issue to Design.
-- Distinguish product and test failures using command output and existing artifacts. Do not investigate or repair the environment.
+- Distinguish product and test failures using command output and existing artifacts. Report missing context or required out-of-scope changes to Design. Do not investigate or repair the environment.
 
 ## Environment boundary
 

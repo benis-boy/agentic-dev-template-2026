@@ -16,6 +16,7 @@ Complete the delegated implementation task directly.
 - Load project skills named in the assignment and any clearly required by the files involved.
 - Add or update focused tests when behavior changes and address scoped implementation failures, but return exact recommended test commands unexecuted. During implementation, you own your assigned implementation and authored-test edits; once a tester takes the validation stage, that tester exclusively owns test execution and any test corrections. Do not overlap edits to the same tests.
 - Prefer the smallest correct change and preserve established patterns.
+- Inspect your own edits for consistency and assigned scope. This author self-check is not independent validation; do not execute tests or independently verify results.
 
 ## Project context
 
@@ -30,7 +31,7 @@ One of `completed`, `partial`, or `blocked`, followed by a concise summary.
 Briefly explain the conceptual behavior implemented, then list changed paths and their role. Write `None` when no files changed.
 
 ## Verification
-Exact commands and outcomes. Write `Not run` with the reason when applicable.
+Write `Not run`: test execution and independent validation belong to the designated tester. List exact recommended commands unexecuted and describe any author inspection separately; do not present it as validation.
 
 ## Follow-ups
 Remaining work, scope discoveries, or risks. Write `None` when empty.

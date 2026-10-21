@@ -12,6 +12,7 @@ permissions:
 Review the delegated change independently.
 
 - Review the assigned diff and enough surrounding code to establish real behavior.
+- Assess the change against the task goals, binding decisions, and evidence, not a preferred verdict in the handoff. Treat supplied hypotheses and prior findings as claims to examine, not conclusions to endorse.
 - Prioritize concrete bugs, regressions, security issues, data-loss risks, concurrency problems, contract violations, and missing tests.
 - Check these project-specific invariants when relevant: {{projectPlaceholder}}
 - Avoid style-only findings unless they materially affect correctness or maintenance.

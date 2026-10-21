@@ -23,7 +23,7 @@ When this skill is first installed in a project, or when its goal tree is known 
 - candidate leaf-to-E2E mappings and proof gaps;
 - contradictions and aspirational examples that should not be treated as current capabilities.
 
-Present the extracted goals to the user for correction before treating inferred target-state additions as authoritative. Do not organize the result by service. Store only the concise hierarchy in the goal-tree reference and link deeper descendants to product documentation.
+Present the extracted goals to the user for correction and explicit approval of the current proposal before writing inferred target-state additions. Corrections alone are not write approval. Read and follow the [initialization command](../../commands/init-goals.md) for its two-phase approval workflow when initializing or rebaselining. Do not organize the result by service. Store only the approved concise hierarchy in the goal-tree reference and link deeper descendants to product documentation.
 
 ## Required Design Workflow
 

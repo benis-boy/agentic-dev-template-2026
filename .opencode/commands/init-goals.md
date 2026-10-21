@@ -81,11 +81,17 @@ update only the approved scope:
   the approved outcomes make it inaccurate or incomplete and ownership permits
   the edit.
 
+If writing stops partway through, report the files updated, files still pending,
+and any inconsistent goal/proof/index state. Do not roll back unrelated edits or
+blindly repeat Phase 2. Before resuming, recheck the current files against the
+approved packet; return to Phase 1 if its evidence or approved scope has changed.
+
 Create a proof-inventory row for every approved leaf, even when no qualifying
-test exists; record the gap explicitly. A leaf remains `untested` unless its
-inventory contains multiple independent tests including at least one qualifying
-end-to-end test. Preserve accurate existing guidance. Do not turn uncertain
-evidence into an authoritative target. Report unresolved contradictions and
+test exists; record the gap explicitly. An implemented leaf remains `untested`
+unless its inventory contains multiple independent tests including at least one
+qualifying end-to-end test; leaves not fully implemented retain `target` or
+`partial` as appropriate. Preserve accurate existing guidance. Do not turn
+uncertain evidence into an authoritative target. Report unresolved contradictions and
 out-of-scope updates instead of silently resolving them. Finish by summarizing
 written goals, statuses, proof gaps, files changed, and any decisions still
 needed; this is a documentation initialization, so do not claim test execution

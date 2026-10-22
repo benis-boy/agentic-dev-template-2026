@@ -8,10 +8,18 @@ Improve the project's Markdown documentation so it is trustworthy, navigable, an
 
 This is a bounded review-and-repair workflow, not a mandate to restructure docs, create a documentation program, or make every file stylistically uniform. Preserve unrelated staged, unstaged, and untracked work. Make small evidence-supported editorial, retirement, and link fixes. For tracked, unchanged docs, evidence-supported retirement under the policy below is normal cleanup work and needs no separate approval solely because it deletes a file; ask the human before material changes to retained requirements or meaning, authority changes, or resolving ambiguous conflicts.
 
+## Ignored subpaths
+
+This command excludes the following repository-relative subtrees, including all descendants, from content review, editing, and retirement:
+
+- `.opencode/skills/playwright-cli/` — User-requested cleanup exclusion; leave its content unchanged.
+
+Name each ignored subtree and its reason in the inventory and final report as excluded/skipped, not reviewed; do not claim full-repository review coverage without disclosing these exclusions. References from documents outside an ignored subtree may still be checked for target existence and navigation without rewriting ignored content.
+
 ## Inventory and map
 
 1. Start at the project root. Read applicable root and nested `AGENTS.md` guidance and your own current prompt. Read linked operational guidance when it applies; links do not load themselves. Never assume a child agent knows a parent or sibling prompt.
-2. Inventory first-party Markdown recursively, including hidden directories, root and nested `AGENTS.md`, case-insensitive `.md`, and other Markdown extensions actually used (for example `.markdown`, `.mdx`, `.mdown`, or `.mkd`). Include root and package READMEs, monorepo/package documentation, docs-site content, MDX, and untracked first-party docs. Preserve untracked docs under the user-work safeguard below. Do not follow symlinks outside the project.
+2. Inventory first-party Markdown recursively, except for the explicitly ignored subpaths above, including hidden directories, root and nested `AGENTS.md`, case-insensitive `.md`, and other Markdown extensions actually used (for example `.markdown`, `.mdx`, `.mdown`, or `.mkd`). Include root and package READMEs, monorepo/package documentation, docs-site content, MDX, and untracked first-party docs. Preserve untracked docs under the user-work safeguard below. Do not follow symlinks outside the project.
 3. Classify the inventory using the repository's own structure, not a prescribed folder layout. For each family, identify its purpose, audience, package/product area, lifecycle or version applicability, likely owner, canonical source for key facts, and useful adjacent docs. A concise inventory map by family/package is enough; do not create a persistent tracking system or report artifact unless requested.
 4. Adapt this taxonomy to what exists: entry-point READMEs and onboarding/contributing; tutorials, how-to/task guides, and exhaustive API/CLI/schema/config reference; architecture, design, security, ADRs, RFCs, specifications, plans, and proposals; operations, runbooks, deployment, recovery, and troubleshooting; changelogs, releases, migrations, deprecations, versioned or archived material; legal/compliance and localized docs; generated reference and docs-site/MDX content. It is a classification aid, not a request to add every document type or create new directories.
 5. Exclude dependency/vendor, VCS, build, cache, and generated/artifact areas only when justified by project guidance or evidence, and name those exclusions. Do not blindly ignore generated docs or their links: identify generated outputs and their authoritative source, review references/routing as appropriate, and state what could not be inspected or regenerated. Treat unreadable files and scope exclusions separately from reviewed files.

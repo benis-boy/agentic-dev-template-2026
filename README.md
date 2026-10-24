@@ -8,8 +8,6 @@ The default onboarding path is an explicitly approved `/devcontainer` invocation
 
 ## Design Decisions
 
-The role descriptions in this section are a concise summary. For human-oriented explanation and navigation, see [Agent Relationships and Context](.opencode/docs/agent-relationships.md); it is not required operational context for the agents.
-
 ### One Primary Coordinator
 
 `design` is the only user-facing primary agent. It runs on `github-copilot/gpt-6.1-sol` and owns planning, routing, context-rich handoffs, and integration. It may implement a tiny fix directly only when clearly cheaper than delegation; it never runs tests.
@@ -62,7 +60,7 @@ The supplied files pin these exact GitHub Copilot model IDs; the installer verif
 - Primary, agent-maintainer, and emergency heavy subagent: `github-copilot/gpt-6.1-sol`
 - Normal subagents: `github-copilot/gpt-6-luna`
 
-Design uses Sol 6.1 for orchestration, and the emergency heavy subagent and agent-maintainer are role-specific Sol exceptions; Luna 6 is the normal subagent choice for bounded implementation, discovery, review, and testing. These are qualitative role choices, not comparative benchmark claims. Account availability and model catalog change; pin the exact discovered IDs and do not use an unverified latest alias or automatic substitute. See [model policy](.opencode/docs/model-policy.md) for dated pricing context and cost-conscious use.
+Design uses Sol 6.1 for orchestration, and the emergency heavy subagent and agent-maintainer are role-specific Sol exceptions; Luna 6 is the normal subagent choice for bounded implementation, discovery, review, and testing. These are qualitative role choices, not comparative benchmark claims. Account availability and model catalog change; pin the exact discovered IDs and do not use an unverified latest alias or automatic substitute.
 
 The reusable source config and supplied agents now use native OpenCode V2 shapes. This documentation/configuration conversion does not install or upgrade OpenCode, packages, or credentials, and does not verify model calls or live runtime behavior. A V1 destination must stop before merging the V2-only active config/agent files until a separately approved runtime upgrade; never silently downgrade or overwrite its working configuration. See the [V2 migration guide](.opencode/docs/opencode-v2-migration.md) for mappings, migration caveats, and unverified acceptance gates. The historical host-version and compatibility evidence for the root devcontainer is recorded separately below and is not proof of this template migration.
 
@@ -78,14 +76,12 @@ The reusable source config and supplied agents now use native OpenCode V2 shapes
 - `.opencode/rules/template-maintainers.md`: active source-repository-only guidance; exclude this rule and its config instruction entry when distributing the template.
 - `.opencode/commands/init-goals.md`: human-triggered fresh-session initialization command; invoke `/init-goals` after restart and approve candidates before authoritative writes.
 - `.opencode/commands/cleanup.md`: `/cleanup` command for scalable, type-aware Markdown review by audience, lifecycle, and canonical ownership, with honest coverage reporting.
-- `.opencode/docs/agent-relationships.md`: human-oriented explanation and navigation for agent relationships; operational knowledge is in the role prompts.
 - `.opencode/commands/devcontainer.md` and `.opencode/docs/devcontainer.md`: default explicit onboarding follow-up and operational guide for adapting a destination project to a reproducible devcontainer with OpenCode v2, host-auth staging gates, and durable sessions. Template installation only copies these files; it does not generate a devcontainer.
 - `.opencode/docs/e2e-runner-feature.md`: required end-to-end runner implementation plan. The installer does not install or customize it automatically; it must notify the human to handle the plan for the destination project because reliable end-to-end proof is required for proper agentic development.
 - `install.md`: agent-oriented installation procedure.
 - `update.md`: destination-root workflow for behavior-based reconciliation of an existing installation, including v2 targets and local improvements.
 - `bootstrap.md`: source-pinned onboarding, destination classification, approval gates, durable setup record, and readiness reporting.
 - `.opencode/docs/template-onboarding.md`: one-shot maintainer review checklist and manual disposable-destination rehearsals; do not copy it into destination projects.
-- `.opencode/docs/model-policy.md`: model pins, dated Copilot pricing context, and cost policy.
 - `.opencode/docs/opencode-v2-migration.md`: implemented native-config mappings, compatibility guidance, and unverified runtime/model/auth acceptance gates.
 
 ## Root Devcontainer

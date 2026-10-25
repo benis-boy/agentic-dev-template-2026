@@ -3,7 +3,8 @@
   "instructions": [".opencode/rules/template-maintainers.md"],
   "default_agent": "design",
   "permissions": [
-    { "action": "*", "resource": "*", "effect": "allow" }
+    { "action": "*", "resource": "*", "effect": "allow" },
+    { "action": "skill", "resource": "goal-oriented-design", "effect": "deny" }
   ],
   "agents": {
     "build": {

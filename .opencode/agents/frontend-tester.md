@@ -7,6 +7,9 @@ permissions:
   - action: "*"
     resource: "*"
     effect: allow
+  - action: skill
+    resource: goal-oriented-design
+    effect: deny
 ---
 
 Validate delegated frontend behavior independently. Test components, client behavior, accessibility, responsive interaction, and browser workflows. Do not take ownership of backend implementation.

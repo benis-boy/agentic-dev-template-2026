@@ -7,6 +7,9 @@ permissions:
   - action: "*"
     resource: "*"
     effect: allow
+  - action: skill
+    resource: goal-oriented-design
+    effect: deny
 ---
 
 Investigate the delegated codebase question using targeted reads and searches.

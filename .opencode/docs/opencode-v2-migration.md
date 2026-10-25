@@ -19,7 +19,7 @@ The source `.opencode/opencode.json` now uses the following native V2 shape:
 
 The built-in `build`, `plan`, `general`, and `explore` agents stay disabled. V2 has no built-in `scout`; Scout remains a template-defined agent role, not a builtin config entry. The repository's active `agents` definitions use native V2 frontmatter and role modes. The JSON schema URL is retained for editor validation; it is not used here as authority for V2 shape because it accepts deprecated V1 fields too.
 
-The wildcard permission rule is intentionally broad: it allows every action on every resource, including paths outside the project. Do not add an `external_directory` ask rule to this template. Template role distinctions (including read-only Scout/Reviewer intent, bounded Worker scope, and tester-only execution) remain prompt instructions, not technical restrictions or security boundaries. OpenCode's ordered rules and higher-level policies still apply. During a destination merge, inspect its effective policies and preserve unrelated meaningful asks/denials; obtain explicit approval for a material conflict rather than deleting or superseding restrictions indiscriminately. This source config is not a security-policy template for untrusted agents or inputs.
+The wildcard permission rule is intentionally broad: it allows every action on every resource, including paths outside the project. Do not add an `external_directory` ask rule to this template. Template role distinctions (including read-only Scout/Reviewer intent, bounded Worker implementation and backend-check scope, and frontend-tester's exclusive frontend execution) remain prompt instructions, not technical restrictions or security boundaries. OpenCode's ordered rules and higher-level policies still apply. During a destination merge, inspect its effective policies and preserve unrelated meaningful asks/denials; obtain explicit approval for a material conflict rather than deleting or superseding restrictions indiscriminately. This source config is not a security-policy template for untrusted agents or inputs.
 
 ## Agent definition mappings
 
@@ -27,7 +27,7 @@ Native V2 agent fields used by the template follow the official [agents guide](h
 
 | V1 field/behavior | V2 treatment |
 | --- | --- |
-| `permission` mapping | Ordered `permissions` rules; the template catchall is `{ "action": "*", "resource": "*", "effect": "allow" }` |
+| `permission` mapping | Ordered `permissions` rules; the template catchall is `{ "action": "*", "resource": "*", "effect": "allow" }`, followed by an exact `skill` rule for `goal-oriented-design`: root deny, Design/Heavy allow, other supplied agents deny |
 | `disable` | `disabled` |
 | Role kind | Explicit `mode: primary` for Design and `mode: subagent` for leaf roles |
 | Semantic UI color names | Six-digit hex colors |
@@ -52,7 +52,7 @@ The V2 migration guide states that existing command and skill definitions remain
 
 The conversion records intended file shapes, not runtime acceptance. As part of this change, no V2 runtime config inspection, model selection, inference, child-agent execution, permission resolution, login, auth import, or credential validation was performed. Acceptance remains **UNVERIFIED** for native config loading, the live Design/child model pins, actual agent behavior, and current authentication. Do not claim model calls or runtime compatibility were tested.
 
-For a separately approved V2 acceptance exercise, use the exact selected release's CLI help and config/agent/permission docs to inspect the resolved config, confirm Design is the default primary and each role's mode/model, verify the four built-ins are disabled, and inspect effective permissions without probing role enforcement as a technical denial. Any live model/auth exercise requires separate human approval and a tester-owned, appropriately isolated profile; record exact model identity and cleanup evidence without exposing secrets. A static file review does not substitute for those checks.
+For a separately approved V2 acceptance exercise, use the exact selected release's CLI help and config/agent/permission docs to inspect the resolved config, confirm Design is the default primary and each role's mode/model, verify the four built-ins are disabled, and inspect effective permissions without probing role enforcement as a technical denial. Any live model/auth exercise requires separate human approval and an appropriately isolated profile; assign scoped execution to a fresh non-author worker in backend verification-only mode when independent execution is required. That mode does not authorize product or environment repair. Record exact model identity and cleanup evidence without exposing secrets. A static file review does not substitute for those checks, and this migration does not add a default reviewer or test-executor chain.
 
 ### Historical devcontainer authentication evidence (separate scope)
 

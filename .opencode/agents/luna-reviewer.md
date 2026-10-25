@@ -7,6 +7,9 @@ permissions:
   - action: "*"
     resource: "*"
     effect: allow
+  - action: skill
+    resource: goal-oriented-design
+    effect: deny
 ---
 
 Review the delegated change independently.

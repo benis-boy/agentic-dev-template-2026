@@ -1,10 +1,10 @@
 ---
-description: Bootstrap a deeply researched advisory council for a subject or ambition
+description: Initialize a deeply researched advisory council or reconcile an existing council's coverage
 agent: design
 subagent: false
 ---
 
-Initialize a reusable advisory council for this subject or ambition:
+Initialize or refresh a reusable advisory council for this subject or ambition:
 
 $ARGUMENTS
 
@@ -14,11 +14,15 @@ Read `.opencode/docs/council-of-experts.md` **fully before proceeding**. If it i
 
 This invocation commissions setup within its stated scope, not implementation of the subject itself. Stay in the existing Design root session: the manager cannot bootstrap itself. Read applicable project instructions and relevant canonical project context explicitly; neither links nor stored `@path` text loads file contents. Treat template placeholders as placeholders, not project facts. If the subject is empty and indispensable intent cannot be established from the invocation context, ask one focused subject/ambition question before research or writes; do not invent a trial topic.
 
+Establish **new initialization versus existing-council reconciliation/refresh** from invocation intent and actual definitions/notes, including partial outputs; do not invent mode flags. For an existing council, preserve its mandate, members, exact IDs, notes, supported findings, and local adaptations. Compare actual project evolution and current reusable contracts with those assets; map relevant disciplines, consequential questions, and risks to existing expertise, identifying inadequate or missing coverage rather than replacing the roster by default. Resolve consequential mandate conflicts or proposed mandate changes with the user; ordinary in-scope role design and repair need no per-expert approval.
+
 Infer the advisory scope, likely consequential questions, constraints, and useful expertise from the subject and available facts. Do not infer an expanded Design decision remit. The exact remit for consequential direction/product-policy decisions and possible council read-only goals access remain undecided; neither is a bootstrap dependency. Council agents never write, update, or maintain the goals skill or goal/proof records and do not read them by default. Leave source-template goal/proof/index seeds pristine; ordinary destination Design record duties remain outside council ownership.
 
 Minimize interruptions. Ask only when genuinely missing intent, consequential scope, resources/authority, or preferences prevent responsible progress. Prepare concise recommended A/B alternatives with concrete trade-offs where meaningful; allow redirection rather than inventing a binary. Independently handle ordinary source selection, roster design, technical planning, and in-scope recovery. Do not require per-source, per-role, per-asset, technical-plan, or activation approvals. The user's actual invocation scope controls authority; existing environment approvals and tool permissions remain binding, and no real paid commitment beyond that scope is authorized.
 
-## Research broadly, then deeply
+## Research to fit initialization or refresh
+
+The broad-to-deep initialization requirements below apply to **new councils**. For **existing-council refresh**, reuse supported research and target new, missing, changed, stale, or conflicting evidence and coverage gaps; do not rerun broad initial research by default. Set finite refresh coverage/stopping criteria around those gaps, retain applicable curation practices below, and disclose remaining uncertainties.
 
 Make substantial, potentially massive **online-first subject research the dominant initialization effort**, before finalizing the roster. A repository inspection, a couple of queries, or unsupported model recollection is not sufficient. Use many searches and source reads across broad-to-deep passes as warranted. Local project records and implementation constrain applicability; they neither replace nor bound the online investigation.
 
@@ -28,11 +32,17 @@ Work from an evidence/coverage map toward deeper investigation of material uncer
 
 Curate reusable shared foundations and specialist findings with material source links and enough context to support later use. Preserve disagreements, applicability limits, uncertainties, and missing expertise; distinguish observations from inference and recommendation. Derive a broad but bounded roster from substantive needs, not fictitious salaries, prestige, personas, or a target headcount. Meaningful differences may justify overlap; every imaginable specialty is not completeness. Keep the full research corpus out of each prompt. Later tasks should reuse curated findings and research uncovered, changed, stale, or conflicting points selectively—not repeat broad initialization research by default.
 
+## Ground at least one member in the existing codebase
+
+For either mode over an existing codebase, ensure at least one substantive expertise-defined member has evidence-based general source-code understanding. An existing suitable architect/generalist may qualify; neither a title nor a documentation summary establishes coverage, and no new name is mandatory. Commission bounded read-only code discovery covering entrypoints, main modules/runtime boundaries, key flows/data, integrations/dependencies, canonical code/config paths, architecture constraints, and inspection gaps. Reuse supported orientation and inspect relevant changes/gaps on refresh; do not require every expert to inspect all code or repeat full discovery each task.
+
+Supply inspected paths and concrete code-grounded findings to role selection/definition: designate the source-aware member's substantive remit and require explicit loading of relevant current notes and canonical code/config context for each task. Through the note owner below, retain concise source navigation, architectural orientation, and inspection limitations in current shared/member notes, not source dumps or claims of automatic memory. For empty/no-source projects, report this requirement pending until implementation exists; invent neither code nor an expert's knowledge. No goal/proof read is a prerequisite.
+
 ## Commission artifacts and reconcile ownership
 
 Inspect existing council assets, affected operational instructions, and any partial writes before changing them. On retries reconcile the intended scope with current contents, preserving unrelated content and supported findings. Do not blindly overwrite existing councils, destructively roll back partial work, or silently repurpose a conflicting mandate; report consequential conflicts.
 
-Design directly commissions `agent-maintainer` for generated definitions **and affected operational instruction reconciliation together**, including applicable role maps and `AGENTS.md` guidance. Supply the researched mandate, evidence summaries, explicit ownership boundaries, exact output paths/IDs, and the task's scope; do not seek per-asset approval. The later initialization outputs are:
+Design directly commissions `agent-maintainer` for new or reconciled definitions **and affected operational instruction reconciliation together**, including applicable role maps and `AGENTS.md` guidance. Supply the researched mandate, evidence summaries, explicit ownership boundaries, exact output paths/IDs, and the task's scope; do not seek per-asset approval. The council output contracts are:
 
 | Path | Required purpose |
 | --- | --- |
@@ -43,7 +53,7 @@ Design directly commissions `agent-maintainer` for generated definitions **and a
 
 Have the maintainer consult the current official [V2 Agents documentation](https://opencode.ai/v2/docs/agents) for changed definition fields. Put selection-critical expertise in discoverable descriptions and essential role behavior inline. A folder supplies neither memory nor isolation; primary/subagent modes and Markdown paths do not establish transport, recognition, or policy enforcement. Do not add speculative permission or model controls.
 
-Assign `council/Manager` as note publisher only within explicitly assigned documentation-only scope; experts research and propose sourced amendments. If the manager cannot yet publish initial notes as a supported separate root, Design assigns a bounded general-documentation owner to publish the researched notes and reports manager publishing as unconfirmed. Never invoke a child manager as a workaround. Notes are derived context: canonical project records and relevant implementation/configuration remain authoritative. Distinguish proposed, accepted, planned, implemented, and verified state. Publish amendments serially from the current note, preserving supported findings and resolving contradictions against canonical evidence; this practice is not a lock guarantee.
+Assign an active, in-scope `council/Manager` as note publisher only within explicitly assigned documentation-only scope; experts research and propose sourced amendments. **Only during initial bootstrap**, if the manager cannot yet publish initial notes as a supported separate root, Design assigns a bounded general-documentation owner to publish the researched notes and reports manager publishing as unconfirmed. For an existing council without an active/in-scope manager, report the exact outstanding note refresh; do not appoint a standing Design alternate publisher or automatically wake a root. Never invoke a child manager as a workaround. Notes are derived context: canonical project records and relevant implementation/configuration remain authoritative. Distinguish proposed, accepted, planned, implemented, and verified state. Publish amendments serially from the current note, preserving supported findings and resolving contradictions against canonical evidence; this practice is not a lock guarantee.
 
 Fresh task sessions must explicitly read the relevant current notes, shared foundations, and canonical context; links are not loading and no remembered or pending facts carry over. Verify material unknowns or conflicts through targeted inspection/research, not automatic whole-project rediscovery. Do not create council versions, revision/source-base markers, freshness ledgers, change cursors, queues, automatic wakeups, or a memory service. Note maintenance cannot rewrite instructions or canonical decisions. Definition/mandate changes return to maintainer ownership; unattended maintenance needs are reported, not queued or promised.
 
@@ -67,8 +77,8 @@ Obtain appropriate independent read-only review of the generated contracts and n
 
 Finish with a concise report separating:
 
-1. Authored/reconciled paths and their ownership; staged, partial, conflicting, or incomplete work.
-2. Research scope and substantive coverage, citations, material gaps, uncertainties, and roster rationale.
+1. Initialization versus refresh, authored/reconciled paths and their ownership; preserved adaptations and staged, partial, conflicting, or incomplete work, including outstanding note publication.
+2. Research scope and reused/new evidence, citations, material gaps, uncertainties, and roster sufficiency against relevant disciplines/questions/risks; any inadequate or missing roles. Name the designated source-aware expert, inspected code evidence and inspection gaps, or the pending no-source requirement, separately from runtime availability.
 3. Runtime recognition of definitions.
 4. Separate-root session availability/selection, distinct from recognition.
 5. Direct request/reply routing and cancellation evidence or blockers.

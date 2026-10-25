@@ -38,6 +38,7 @@ Create `docs/template-setup.md` unless that path already exists. If it exists, t
 - source-to-destination path mappings for commands, skills, docs and references; checked links and unresolved links;
 - decisions and approvals, rejected/deferred alternatives, conflicts, unknowns and explicit “not established” commands;
 - ordered phases and independent status for workflow assets, runtime/config compatibility, environment, goals, checks, and authorized product outcome;
+- council status independently from its reusable command/guide assets: generated definitions and current notes, runtime recognition/root availability/direct transport evidence, project-coverage assessment, source-orientation evidence, and exact outstanding follow-up;
 - devcontainer retained/adapted/generated status, or user-confirmed exception reason, assessed constraint, alternative, tradeoffs and confirmation;
 - runtime/model/version evidence, environment evidence, commands/results with context, and unresolved blockers;
 - exact next action/resume prompt that names this record and the first incomplete phase. Do not put tokens, credentials, session data, or private auth paths in the record.
@@ -59,8 +60,9 @@ Report these statuses independently; installation is not product readiness:
 | Dimension | Allowed report |
 |---|---|
 | Workflow assets | not started / partial / installed and links checked |
-| Runtime/config | pending / compatible evidence recorded / blocked; distinguish v1/v2 and approval |
-| Environment | pending / ready with checks / user-confirmed documented alternative / blocked |
+| Council | not assessed / absent / incomplete / needs-compatible-refresh / adapted-current / blocked / unknown / explicitly deferred; distinguish generated definitions/notes, runtime recognition/availability, coverage, and source-orientation evidence |
+| Runtime/config | pending / compatible evidence recorded / blocked / unknown; distinguish v1/v2 and approval |
+| Environment | pending / ready with checks / user-confirmed documented alternative / blocked / unknown |
 | Goals | not initialized / proposal awaiting approval / approved and written / preserved on update |
 | Checks | not runnable / commands not established / runnable / exact results recorded |
 | First product outcome | out of scope / not started / in progress / proven by named evidence |

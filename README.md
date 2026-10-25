@@ -6,6 +6,8 @@ Start with [`bootstrap.md`](bootstrap.md) from the destination repository. It es
 
 The default onboarding path is an explicitly approved `/devcontainer` invocation after assets are installed and the agent runtime is restarted. An existing valid container may be retained or adapted after inspection; it is never blindly regenerated. Skipping requires a concrete, user-supplied reason, an assessed constraint and documented reproducible alternative, plus user confirmation. Preference alone needs clarification; unresolved reasons leave environment readiness pending. Installing assets never invokes `/devcontainer`, installs a runtime, stages credentials, migrates runtime configuration, or generates a container. `/devcontainer` is separate from approval-gated `/init-goals` and does not initialize goal documentation.
 
+For an existing installation, use [`update.md`](update.md), not a blind recopy: it separately assesses whether reusable commands/guides are present and whether a real council or project environment is complete, current, or unknown. Missing council/container setup is an explicit human follow-up (`/init-council <subject or ambition>` and/or `/devcontainer`) after compatible staging and command/agent availability; update never initializes either automatically. A reviewed update may include a bounded file-only repair of an existing setup, but not container operations, protected migrations, or replacement of local choices. The durable `docs/template-setup.md` record retains the evidence and independent readiness statuses.
+
 ## Design Decisions
 
 ### One Primary Coordinator
